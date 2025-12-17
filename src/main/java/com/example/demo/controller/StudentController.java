@@ -1,50 +1,70 @@
+StudentController.java
+
 package com.example.demo.controller;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
 
-@restController
-@RequestMapping("/student")
-public class StudentController{
-    private final StudentService ser;
-    @Autowired
-    public StudentController(StudentService ser){
-        thi.ser=ser;
-    }
-    @PostMapping("/add")
-    public Student addStudent(@RequestBody Student st){
-        return ser.insertStudent(st);
-    }
-    @GetMapping("/getAll")
-    public List<Student>getAllStudents(){
-        return ser.getAllStudents();
-    }
-    @GetMapping("/get/{id}")
-    public Optional<Student> getStudent(@PathVariable Long id){
-        return ser.getOneStudent(id);
-    }
-    @PutMapping("/update/{id}")
-    public String updateStudent(@PathVariable Long id,@RequestBody Student newStudent){
-        Optional<Student> student=ser.getOneStudent(id);
-        if(student.isPresent()){
-            newStudent.setId(id);
+@RestController
+@RequestMapping("/students") // ✅ base path
+public class StudentController {
 
-            ser.insertStudent(newStudent);
-            return "Updated Successfully";
-        }
-        return "Id not found";
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
-    @DeleteMapping("/del/{id}")
-    public String deleteStudent(@PathVariable Long id){
-        Optional<Student> student=ser.getOneStudent(id);
-        if(student.isPresent()){
-            ser.deleteStudent(id);
-            return "Deleted Successfully";
+
+    // CREATE
+    @PostMapping
+    public Student postStudent(@RequestBody Student st) {
+        return studentService.insertStudent(st);
+    }
+
+    // READ ALL
+    @GetMapping
+    public List<Student> getAll() {
+        return studentService.getAllStudents();
+    }
+
+    // READ ONE
+    @GetMapping("/{id}")
+    public Optional<Student> getById(@PathVariable Long id) {
+        return studentService.getOneStudent(id);
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    public String updateStudent(@PathVariable Long id, @RequestBody Student st) {
+        Optional<Student> studentOpt = studentService.getOneStudent(id);
+
+        if (studentOpt.isPresent()) {
+            Student student = studentOpt.get();
+            student.setName(st.getName());
+            student.setEmail(st.getEmail());
+            student.setCgpa(st.getCgpa());
+            student.setDob(st.getDob());
+
+            studentService.insertStudent(student);
+            return "Updated Successfully ✅";
         }
-        return "Id not found";
+        return "Student Not Found ❌";
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable Long id) {
+        Optional<Student> student = studentService.getOneStudent(id);
+
+        if (student.isPresent()) {
+            studentService.deleteStudent(id);
+            return "Deleted Successfully ✅";
+        }
+        return "Student Not Found ❌";
     }
 }

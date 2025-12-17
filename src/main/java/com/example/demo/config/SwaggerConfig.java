@@ -1,3 +1,5 @@
+SwaggerConfig.java
+
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
@@ -14,7 +16,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 // You need to change the port as per your server
                 .servers(List.of(
-                        new Server().url("https://9005.vs.amypo.ai")
+                        new Server().url("https://9330.pro604cr.amypo.ai/")
                 ));
         }
 }

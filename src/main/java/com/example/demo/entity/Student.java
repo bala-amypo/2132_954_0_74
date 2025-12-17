@@ -1,30 +1,75 @@
+Student.java
+
 package com.example.demo.entity;
-public class Student{
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+@Entity
+
+public class Student {
+@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
-    public void setId(Long id){
-        this.id=id;
+    private LocalDate dob;
+    private Float cgpa;
+
+
+    public Long getId() {
+        return id;
     }
-    public String getName(){
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
-    public void setName(String name){
-        this.name=name;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public void setEmail(String email){
-        this.email=email;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public Student(int id,String name,String email){
-        this.id=(long)id;
-        this.name=name;
-        this.email=email;
+
+    public LocalDate getDob() {
+        return dob;
     }
-    public Student(){
-        
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public Float getCgpa() {
+        return cgpa;
+    }
+
+    public void setCgpa(Float cgpa) {
+        this.cgpa = cgpa;
+    }
+    public Student(Float cgpa, LocalDate dob, String email, Long id, String name) {
+        this.cgpa = cgpa;
+        this.dob = dob;
+        this.email = email;
+        this.id = id;
+        this.name = name;
+    }
+    
+    public Student() {
     }
 
 }
