@@ -17,5 +17,19 @@ public class StudentController{
     public Optional<Student> getStudent(@PathVariable Long id){
         return ser.getOneStudent(id);
     }
-    
+    @PutMapping("/update/{id}")
+    public String updateStudent(@PathVariable Long id,@RequestBody Student newStudent){
+        Optional<Student> student=ser.getOneStudent(id);
+        if(student.isPresent()){
+            newStudent.setId(id);
+
+            ser.insertStudent(newStudent);
+            return "Updated Successfully";
+        }
+        return "Id not found";
+    }
+    @DeleteMapping("/del/{id}")
+    public String deleteStudent(@PathVariable Long id){
+        Optional
+    }
 }
