@@ -1,4 +1,11 @@
 package com.example.demo.controller
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.
+
+
 public class StudentController{
     private final StudentService ser;
     @Autowired
@@ -30,6 +37,11 @@ public class StudentController{
     }
     @DeleteMapping("/del/{id}")
     public String deleteStudent(@PathVariable Long id){
-        Optional
+        Optional<Student> student=ser.getOneStudent(id);
+        if(student.isPresent()){
+            ser.deleteStudent(id);
+            return "Deleted Successfully";
+        }
+        return "Id not found";
     }
 }
