@@ -1,4 +1,4 @@
-package com.example.demo.controller
+package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +16,7 @@ public class StudentController{
         thi.ser=ser;
     }
     @PostMapping("/add")
-    public StudentaddStudent(@RequestBody Student st){
+    public Student addStudent(@RequestBody Student st){
         return ser.insertStudent(st);
     }
     @GetMapping("/getAll")
