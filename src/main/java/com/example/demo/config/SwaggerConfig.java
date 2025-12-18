@@ -14,6 +14,3 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Transport API - User & Vehicle CRUD")
                         .version("1.0.0")
-                        .description("CRUD endpoints for User and Vehicle"));
-    }
-}
